@@ -6,7 +6,9 @@ import lombok.Data;
 public class ProviderProfileDto {
     private Long id;
     private Long userId;
-
+    private String Name;
+    private String phone;
+    private String email;
     private String expertise;
     private String bio;
     private String barRegistrationNumber;

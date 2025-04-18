@@ -35,6 +35,9 @@ public class ProviderProfileService {
         providerProfile.setRating(0.5);
         providerProfileRepository.save(providerProfile);
         BeanUtils.copyProperties(providerProfile, providerProfileDto);
+        providerProfileDto.setName(providerProfile.getUser().getName());
+        providerProfileDto.setPhone(providerProfile.getUser().getPhone());
+        providerProfileDto.setEmail(providerProfile.getUser().getEmail());
         return providerProfileDto;
     }
 
@@ -44,6 +47,10 @@ public class ProviderProfileService {
         for(ProviderProfile providerProfile : providerProfiles){
             ProviderProfileDto providerProfileDto = new ProviderProfileDto();
             BeanUtils.copyProperties(providerProfile, providerProfileDto);
+            providerProfileDto.setName(providerProfile.getUser().getName());
+            providerProfileDto.setPhone(providerProfile.getUser().getPhone());
+            providerProfileDto.setEmail(providerProfile.getUser().getEmail());
+
             providerProfileDtos.add(providerProfileDto);
         }
         return providerProfileDtos;
@@ -57,6 +64,9 @@ public class ProviderProfileService {
         ProviderProfileDto providerProfileDto = new ProviderProfileDto();
         BeanUtils.copyProperties(providerProfile.get(),providerProfileDto);
         providerProfileDto.setUserId(providerProfile.get().getUser().getId());
+        providerProfileDto.setName(providerProfile.get().getUser().getName());
+        providerProfileDto.setPhone(providerProfile.get().getUser().getPhone());
+        providerProfileDto.setEmail(providerProfile.get().getUser().getEmail());
         return providerProfileDto;
     }
 

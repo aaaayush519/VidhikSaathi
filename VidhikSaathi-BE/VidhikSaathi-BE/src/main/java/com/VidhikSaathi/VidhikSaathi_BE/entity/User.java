@@ -18,6 +18,8 @@ public class User {
     private Long id;
     private String name;
     private String email;
+    private String username;
+    private String password;
     private String phone;
     private String role;
     private LocalDateTime registeredAt = LocalDateTime.now();

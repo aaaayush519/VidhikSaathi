@@ -15,9 +15,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
-        UserDto response = userService.createUser(userDto);
+        System.out.println("Api function called");
+        UserDto response = userService.registerUser(userDto);
         return ResponseEntity.ok(response);
     }
 
@@ -29,6 +30,10 @@ public class UserController {
         }
         return ResponseEntity.ok(response);
     }
+    @GetMapping
+    public String Hello(){
+        return "Hello World";
+    }
 
     @GetMapping("/role/{role}")
     public ResponseEntity<List<UserDto>> getUsersByRole(@PathVariable String role){
@@ -37,6 +42,10 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(response);
+    }
+    @PostMapping("/login")
+    public String login(@RequestBody UserDto userDto){
+        return userService.verify(userDto);
     }
 
 }
