@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState,useEffect, Profiler } from "react";
 import ProviderService from "../services/ProviderService";
 import ProviderCard from "./ProviderCard";
@@ -15,7 +14,7 @@ function ProviderList(){
       .catch((error)=>{
         console.log(error);
       })
-    }, [])
+    },[])
 
     return(
         <div className="flex flex-wrap p-9 gap-3 w-full">

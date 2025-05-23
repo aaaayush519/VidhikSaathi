@@ -1,8 +1,10 @@
 package com.VidhikSaathi.VidhikSaathi_BE.services;
 
 import com.VidhikSaathi.VidhikSaathi_BE.dtos.ReviewDto;
+import com.VidhikSaathi.VidhikSaathi_BE.entity.ProviderProfile;
 import com.VidhikSaathi.VidhikSaathi_BE.entity.Review;
 import com.VidhikSaathi.VidhikSaathi_BE.entity.ServiceRequest;
+import com.VidhikSaathi.VidhikSaathi_BE.repository.ProviderProfileRepository;
 import com.VidhikSaathi.VidhikSaathi_BE.repository.ReviewRepository;
 import com.VidhikSaathi.VidhikSaathi_BE.repository.ServiceRequestRepository;
 import org.springframework.beans.BeanUtils;
@@ -20,21 +22,39 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
     @Autowired
     private ServiceRequestRepository serviceRequestRepository;
+    @Autowired
+    private ProviderProfileRepository providerProfileRepository;
 
     public ReviewDto addReview(ReviewDto reviewDto) {
-        Optional<ServiceRequest> serviceRequest = serviceRequestRepository.findById(reviewDto.getServiceRequestId());
-        if(serviceRequest.isEmpty()){
+        Optional<ServiceRequest> serviceRequestOpt = serviceRequestRepository.findById(reviewDto.getServiceRequestId());
+
+        if (serviceRequestOpt.isEmpty()) {
             return null;
         }
+
+        ServiceRequest serviceRequest = serviceRequestOpt.get();
+
         Review review = new Review();
-        review.setServiceRequest(serviceRequest.get());
+        review.setServiceRequest(serviceRequest);
         review.setComment(reviewDto.getComment());
         review.setRating(reviewDto.getRating());
         review.setCreatedAt(LocalDateTime.now());
+
         reviewRepository.save(review);
+
         BeanUtils.copyProperties(review, reviewDto);
+
+        Double averageRating = reviewRepository.averageRatingByProviderUsername(serviceRequest.getProviderUsername());
+
+        ProviderProfile providerProfile = providerProfileRepository.findByUserId(serviceRequest.getProvider().getId())
+                .orElseThrow(() -> new RuntimeException("Provider profile not found"));
+
+        providerProfile.setRating(averageRating != null ? averageRating : 0.0);
+        providerProfileRepository.save(providerProfile); // <-- Don't forget to save the update
+
         return reviewDto;
     }
+
 
     public List<ReviewDto> getReviewsByProviderId(Long id) {
         List<Review> reviews = reviewRepository.findByServiceRequest_Provider_Id(id);

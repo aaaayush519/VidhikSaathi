@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,13 +22,11 @@ public class ProviderProfileService {
     @Autowired
     private UserRepository userRepository;
 
-    public ProviderProfileDto createProviderProfile(ProviderProfileDto providerProfileDto) {
-        Optional<User> providerUser = userRepository.findById(providerProfileDto.getUserId());
-        if(providerUser.isEmpty()){
-            return null;
-        }
+    public ProviderProfileDto createProviderProfile(ProviderProfileDto providerProfileDto, Principal principal) {
+        User providerUser = userRepository.findByUsername(principal.getName());
+
         ProviderProfile providerProfile = new ProviderProfile();
-        providerProfile.setUser(providerUser.get());
+        providerProfile.setUser(providerUser);
         providerProfile.setBio(providerProfileDto.getBio());
         providerProfile.setExpertise(providerProfileDto.getExpertise());
         providerProfile.setBarRegistrationNumber(providerProfileDto.getBarRegistrationNumber());
@@ -36,6 +35,7 @@ public class ProviderProfileService {
         providerProfileRepository.save(providerProfile);
         BeanUtils.copyProperties(providerProfile, providerProfileDto);
         providerProfileDto.setName(providerProfile.getUser().getName());
+        providerProfileDto.setUserId(providerProfile.getUser().getId());
         providerProfileDto.setPhone(providerProfile.getUser().getPhone());
         providerProfileDto.setEmail(providerProfile.getUser().getEmail());
         return providerProfileDto;
@@ -56,7 +56,7 @@ public class ProviderProfileService {
         return providerProfileDtos;
     }
 
-    public ProviderProfileDto gerProviderProfileById(Long id) {
+    public ProviderProfileDto getProviderProfileById(Long id) {
         Optional<ProviderProfile> providerProfile = providerProfileRepository.findById(id);
         if(providerProfile.isEmpty()){
             return null;

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -16,8 +17,8 @@ public class ProviderController {
     private ProviderProfileService providerProfileService;
 
     @PostMapping
-    public ResponseEntity<ProviderProfileDto> createProviderProfile(@RequestBody ProviderProfileDto providerProfileDto) {
-        ProviderProfileDto response = providerProfileService.createProviderProfile(providerProfileDto);
+    public ResponseEntity<ProviderProfileDto> createProviderProfile(@RequestBody ProviderProfileDto providerProfileDto, Principal principal) {
+        ProviderProfileDto response = providerProfileService.createProviderProfile(providerProfileDto , principal);
         if(response == null){
             return ResponseEntity.notFound().build();
         }
@@ -32,7 +33,7 @@ public class ProviderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProviderProfileDto> getProviderProfileById(@PathVariable Long id){
-        ProviderProfileDto response = providerProfileService.gerProviderProfileById(id);
+        ProviderProfileDto response = providerProfileService.getProviderProfileById(id);
         if(response == null){
             return ResponseEntity.notFound().build();
         }

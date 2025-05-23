@@ -5,14 +5,13 @@ const UserRegister = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const navigate = useNavigate();
 
   const onSubmit = async(data) => {
     await UserService.registerUser(data)
-
       .then((response) => {
         console.log(response);
         navigate("/register-success")
@@ -22,8 +21,8 @@ const UserRegister = () => {
       });
   };
   return (
-    <div className="flex justify-center h-173 bg-gray-100">
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-200 shadow-md mt-4 rounded-xl h-120 p-8 w-full max-w-md">
+    <div className="flex justify-center h-150 bg-gray-100">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-200 shadow-md mt-15 rounded-xl h-120 p-8 w-full max-w-md">
       <h1 className="text-2xl font-semibold mb-6 text-center">Registration Page</h1>
         <input
           type="text"
@@ -57,10 +56,10 @@ const UserRegister = () => {
           {...register("role", {
             required: { value: true, message: "Role is required" },
           })}
-          defaultValue="CLIENT"
+          defaultValue="Client"
         >
-          <option value="CLIENT">Client</option>
-          <option value="Provider">Legal Serivice Provider</option>
+          <option value="Client">Client</option>
+          <option value="Provider">Legal Service Provider</option>
         </select>
         {errors.role && <p>errors.role.message</p>}
         <input

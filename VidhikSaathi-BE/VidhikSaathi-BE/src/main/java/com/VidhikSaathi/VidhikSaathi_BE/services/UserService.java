@@ -84,4 +84,9 @@ public class UserService {
         }
         return "failure";
     }
+
+    public String getRole(String username) {
+        String role = userRepository.findByUsername(username).getRole();
+        return role;
+    }
 }

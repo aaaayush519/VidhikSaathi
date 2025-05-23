@@ -2,7 +2,6 @@ package com.VidhikSaathi.VidhikSaathi_BE.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -15,7 +14,7 @@ public class Review {
     @OneToOne
     private ServiceRequest serviceRequest;
 
-    private int rating;
+    private Double rating;
     private String comment;
     private LocalDateTime createdAt = LocalDateTime.now();
 

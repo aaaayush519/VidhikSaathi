@@ -22,6 +22,8 @@ public class ServiceRequest {
     @ManyToOne
     private User provider;
 
+    private String providerUsername;
+    private String clientUsername;
     private String status;
     private String description;
     private LocalDateTime scheduledTime;
