@@ -17,6 +17,5 @@ public class ServiceRequestDto {
     private String ProviderPhoneNumber;
     private Long providerId;
     private String status;
-    private LocalDateTime scheduledTime;
     private LocalDateTime createdAt;
 }

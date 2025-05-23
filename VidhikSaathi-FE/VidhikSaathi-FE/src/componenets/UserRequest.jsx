@@ -38,10 +38,8 @@ const UserRequest = ({ req }) => {
       <p>
         <strong>Status:</strong> {req.status}
       </p>
-      <p>
-        <strong>Scheduled Time:</strong> {req.scheduledTime}
-      </p>
-
+      
+        {req.status === "COMPLETED" &&
       <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex space-x-4">
         <textarea
@@ -69,7 +67,7 @@ const UserRequest = ({ req }) => {
       >
         Submit Feedback
       </button>
-    </form>
+    </form>}
     </div>
   );
 };

@@ -41,7 +41,7 @@ public class ReviewService {
         review.setCreatedAt(LocalDateTime.now());
 
         reviewRepository.save(review);
-
+        serviceRequest.setStatus("FINISHED");
         BeanUtils.copyProperties(review, reviewDto);
 
         Double averageRating = reviewRepository.averageRatingByProviderUsername(serviceRequest.getProviderUsername());

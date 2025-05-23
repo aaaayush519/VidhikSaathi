@@ -37,7 +37,6 @@ public class ServiceRequestService {
         serviceRequest.setProviderUsername(provider.getUser().getUsername());
         serviceRequest.setStatus("PENDING");
         serviceRequest.setCreatedAt(LocalDateTime.now());
-        serviceRequest.setScheduledTime(serviceRequestDto.getScheduledTime());
         //Incomplete for status , Enums to be added
          serviceRequestRepository.save(serviceRequest);
         System.out.println(serviceRequest);

@@ -27,6 +27,14 @@ class RequestService{
         });
         return response;
     }
+    updateRequestStatus=(id, newStatus)=>{
+        let response = axios.put(REQUEST_API_BASE_URL+"/updateStatus/"+id+"?newStatus="+newStatus,null,{
+            headers :{
+                Authorization :`Bearer ${token}`,
+            },
+        });
+        return response;
+    }
 
 }
 export default new RequestService();

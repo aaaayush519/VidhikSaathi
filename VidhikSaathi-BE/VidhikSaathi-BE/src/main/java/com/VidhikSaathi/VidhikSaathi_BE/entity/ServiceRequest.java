@@ -26,7 +26,6 @@ public class ServiceRequest {
     private String clientUsername;
     private String status;
     private String description;
-    private LocalDateTime scheduledTime;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }

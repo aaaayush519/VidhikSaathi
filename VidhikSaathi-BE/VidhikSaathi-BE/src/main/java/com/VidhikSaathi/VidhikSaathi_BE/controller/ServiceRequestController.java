@@ -43,10 +43,10 @@ public class ServiceRequestController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ServiceRequestDto> updateStatus(@PathVariable Long id , @RequestParam String status){
+    @PutMapping("/updateStatus/{id}")
+    public ResponseEntity<ServiceRequestDto> updateStatus(@PathVariable Long id , @RequestParam("newStatus") String newStatus){
         //A functionality to update the status is to be created using Enums
-        ServiceRequestDto response = serviceRequestService.updateStatus(id , status);
+        ServiceRequestDto response = serviceRequestService.updateStatus(id , newStatus);
         if(response == null){
             return ResponseEntity.notFound().build();
         }
