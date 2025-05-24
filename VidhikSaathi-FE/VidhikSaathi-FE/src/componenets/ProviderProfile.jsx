@@ -4,14 +4,13 @@ import ProviderService from "../services/ProviderService";
 import RequestService from "../services/RequestService";
 
  function ProviderProfile(){
-  const { id } = useParams();
   const [provider, setProvider] = useState(null);
 
   useEffect(() => {
     ProviderService.getProviderProfile(id).then((res) => {
       setProvider(res.data);
     });
-  }, [id]);
+  }, []);
 
   if (!provider) return <div className="text-center mt-10">Loading...</div>;
 

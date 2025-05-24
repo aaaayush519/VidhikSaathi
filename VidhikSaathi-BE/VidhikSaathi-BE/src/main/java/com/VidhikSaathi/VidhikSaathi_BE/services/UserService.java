@@ -39,6 +39,7 @@ public class UserService {
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         user.setRole(userDto.getRole().toUpperCase());
+        user.setCompletionStatus(user.getRole().equals("CLIENT"));
         user.setPhone(userDto.getPhone());
         user.setUsername(userDto.getEmail().substring(0,userDto.getEmail().indexOf("@")));
         user.setPassword(passwordEncoder().encode(userDto.getPassword()));//To be encrypted

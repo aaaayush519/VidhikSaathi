@@ -5,16 +5,17 @@ import UserRequest from "./UserRequest";
 
 const UserRequestsList = () => {
   const [requests, setRequests] = useState([]);
-
-  useEffect(() => {
-        RequestService.getRequests()
-      .then((res) => {
-        console.log("Backend se data")
-        console.log(res);
-        setRequests(res.data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const [loading, setLoading] = useState(true);
+ 
+useEffect(() => {
+  RequestService.getRequests()
+    .then((res) => {
+      setRequests(res.data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}, []);
 
   return (
     <div className="p-6">

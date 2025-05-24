@@ -11,6 +11,7 @@ import ProviderDashboard from './componenets/ProviderDashboard'
 import ProviderHome from './componenets/ProviderHome'
 import UserHome from './componenets/UserHome'
 import UserRequestsList from './componenets/UserRequestsList'
+import CompleteProviderProfile from './componenets/CompleteProviderProfile'
 
 function App() {
   const router = createBrowserRouter([
@@ -53,6 +54,10 @@ function App() {
     {
       path:"/providerDashboard",
       element:<><ProviderNavbar/><ProviderDashboard/></>
+    },
+    {
+      path:"/myProviderProfile",
+      element:<><ProviderNavbar/><CompleteProviderProfile/></>
     }
   ])
 

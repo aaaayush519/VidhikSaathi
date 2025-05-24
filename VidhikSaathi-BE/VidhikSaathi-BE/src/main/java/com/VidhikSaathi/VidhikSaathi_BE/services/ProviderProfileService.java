@@ -31,6 +31,8 @@ public class ProviderProfileService {
         providerProfile.setExpertise(providerProfileDto.getExpertise());
         providerProfile.setBarRegistrationNumber(providerProfileDto.getBarRegistrationNumber());
         providerProfile.setVerified(Boolean.FALSE);
+        providerUser.setCompletionStatus(Boolean.TRUE);
+        userRepository.save(providerUser);
         providerProfile.setRating(0.5);
         providerProfileRepository.save(providerProfile);
         BeanUtils.copyProperties(providerProfile, providerProfileDto);
@@ -50,7 +52,6 @@ public class ProviderProfileService {
             providerProfileDto.setName(providerProfile.getUser().getName());
             providerProfileDto.setPhone(providerProfile.getUser().getPhone());
             providerProfileDto.setEmail(providerProfile.getUser().getEmail());
-
             providerProfileDtos.add(providerProfileDto);
         }
         return providerProfileDtos;
@@ -79,5 +80,22 @@ public class ProviderProfileService {
             providerProfileDtos.add(providerProfileDto);
         }
         return providerProfileDtos;
+    }
+
+    public ProviderProfileDto getProviderProfileByUsername(String username) {
+        User provider = userRepository.findByUsername(username);
+        ProviderProfileDto providerProfileDto = new ProviderProfileDto();
+        providerProfileDto.setName(provider.getName());
+        providerProfileDto.setPhone(provider.getPhone());
+        providerProfileDto.setEmail(provider.getEmail());
+        providerProfileDto.setUserId(provider.getId());providerProfileDto.setUsername(provider.getUsername());
+        providerProfileDto.setCompletionStatus(provider.getCompletionStatus());
+        if(providerProfileDto.getCompletionStatus().equals(Boolean.TRUE)){
+            ProviderProfile providerProfile = providerProfileRepository.findByUserId(provider.getId()).orElse(null);
+            providerProfileDto.setBarRegistrationNumber(providerProfile.getBarRegistrationNumber());
+            providerProfileDto.setExpertise(providerProfile.getExpertise());
+            providerProfileDto.setBio(providerProfile.getBio());
+        }
+        return providerProfileDto;
     }
 }

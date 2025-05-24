@@ -39,6 +39,14 @@ public class ProviderController {
         }
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/providerUsername")
+    public ResponseEntity<ProviderProfileDto> getProviderProfileByProviderUsername(Principal principal){
+        ProviderProfileDto response = providerProfileService.getProviderProfileByUsername(principal.getName());
+        if(response == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(response);
+    }
     @GetMapping("/toprated")
     public ResponseEntity<List<ProviderProfileDto>> getProviderProfileByToprated(){
         List<ProviderProfileDto> response = providerProfileService.getProviderProfileByTopRated();

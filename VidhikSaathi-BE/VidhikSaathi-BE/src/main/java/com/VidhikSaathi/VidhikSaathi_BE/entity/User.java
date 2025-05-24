@@ -22,6 +22,7 @@ public class User {
     private String password;
     private String phone;
     private String role;
+    private Boolean completionStatus;
     private LocalDateTime registeredAt = LocalDateTime.now();
 
     @PrePersist
