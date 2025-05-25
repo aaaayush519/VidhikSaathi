@@ -5,6 +5,7 @@ import RequestService from "../services/RequestService";
 
  function ProviderProfile(){
   const [provider, setProvider] = useState(null);
+  const {id} = useParams();
 
   useEffect(() => {
     ProviderService.getProviderProfile(id).then((res) => {

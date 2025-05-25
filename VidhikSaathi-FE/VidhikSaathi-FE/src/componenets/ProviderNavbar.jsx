@@ -11,7 +11,7 @@ function ProviderNavbar() {
     // Enhanced Navbar container
     <nav className="fixed top-0 left-0 right-0 z-50 bg-indigo-800 text-white px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between shadow-lg">
       {/* Brand/Logo Link */}
-      <Link to="/" className="text-2xl sm:text-3xl font-extrabold italic tracking-tight hover:text-indigo-200 transition duration-300 ease-in-out">
+      <Link to="/providerhome" className="text-2xl sm:text-3xl font-extrabold italic tracking-tight hover:text-indigo-200 transition duration-300 ease-in-out">
         VidhikSaathi
         {username && <span className="text-base font-normal ml-2 opacity-80">( {username})</span>} {/* Display username */}
       </Link>
