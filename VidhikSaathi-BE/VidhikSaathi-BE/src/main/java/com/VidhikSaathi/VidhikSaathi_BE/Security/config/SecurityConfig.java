@@ -2,6 +2,7 @@ package com.VidhikSaathi.VidhikSaathi_BE.Security.config;
 
 import com.VidhikSaathi.VidhikSaathi_BE.Security.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,10 +61,13 @@ public class SecurityConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer(){
+            @Value("${cors.allowed-origins}")
+            private String allowedOrigins;
+            String[] origins = allowedOrigins.split(",");
             @Override
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
+                        .allowedOrigins(origins)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);;
