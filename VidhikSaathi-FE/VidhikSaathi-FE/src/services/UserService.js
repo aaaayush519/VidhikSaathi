@@ -1,5 +1,7 @@
 import axios from "axios"
-const USER_API_BASE_URL = "http://localhost:8080/api/users";
+//const USER_API_BASE_URL = "http://localhost:8080/api/users";
+const BASE_API_URL = import.meta.env.VITE_APP_API_BASE_URL;
+const USER_API_BASE_URL = `${BASE_API_URL}/users`;
 const token = localStorage.getItem("jwtToken");
 class UserService{
     registerUser = (user)=>{

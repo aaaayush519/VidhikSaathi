@@ -30,6 +30,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     try {
+      console.log("token requested")
       const response = await UserService.loginUser(data);
       localStorage.setItem("jwtToken", response.data);
       localStorage.setItem("username", data.username);

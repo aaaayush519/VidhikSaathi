@@ -1,5 +1,9 @@
 import axios from "axios";
-const REQUEST_API_BASE_URL = "http://localhost:8080/api/requests";
+//const REQUEST_API_BASE_URL = "http://localhost:8080/api/requests";
+
+const BASE_API_URL = import.meta.env.VITE_APP_API_BASE_URL;
+const REQUEST_API_BASE_URL = `${BASE_API_URL}/requests`;
+
 const token = localStorage.getItem("jwtToken");
 const username = localStorage.getItem("username");
 class RequestService{

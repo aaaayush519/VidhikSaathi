@@ -1,5 +1,7 @@
 import axios from "axios"
-const Provider_API_BASE_URL = "http://localhost:8080/api/providers";
+const BASE_API_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
+const Provider_API_BASE_URL = `${BASE_API_URL}/providers`;
 const token = localStorage.getItem("jwtToken");
 class ProviderService{
     findProviders=()=>{
@@ -18,8 +20,8 @@ class ProviderService{
          });
          return response;
     }
-    getProviderDetailsByUsername=()=>{
-      let response = axios.get(Provider_API_BASE_URL+"/providerUsername",{
+    getProviderDetailsByUsername= async ()=>{
+      let response = await axios.get(Provider_API_BASE_URL+"/providerUsername",{
         headers:{
           Authorization: `Bearer ${token}`,
         },

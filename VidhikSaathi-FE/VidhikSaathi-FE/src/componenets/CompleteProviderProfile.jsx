@@ -13,25 +13,28 @@ const CompleteProviderProfile = () => {
     formState: { errors }
   } = useForm();
 
-  useEffect(() => {
+  const fetchData=()=>{
     ProviderService.getProviderDetailsByUsername()
-      .then((response) => {
-        console.log(response.data);
-        setProviderProfile(response.data);
-        // Set form default values if profile already exists for editing (though current form only for completion)
-        if (response.data) {
-          setValue("userId", response.data.userId);
-          // If profile is already complete, populate existing fields
-          if (response.data.completionStatus) {
-            setValue("barRegistrationNumber", response.data.barRegistrationNumber);
-            setValue("bio", response.data.bio);
-            setValue("expertise", response.data.expertise);
-          }
+    .then((response) => {
+      console.log(response.data);
+      setProviderProfile(response.data);
+      // Set form default values if profile already exists for editing (though current form only for completion)
+      if (response.data) {
+        setValue("userId", response.data.userId);
+        // If profile is already complete, populate existing fields
+        if (response.data.completionStatus) {
+          setValue("barRegistrationNumber", response.data.barRegistrationNumber);
+          setValue("bio", response.data.bio);
+          setValue("expertise", response.data.expertise);
         }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+  useEffect(() => {
+     fetchData();
   }, [setValue]); // Add setValue to dependency array
 
   const onSubmit = async (data) => {

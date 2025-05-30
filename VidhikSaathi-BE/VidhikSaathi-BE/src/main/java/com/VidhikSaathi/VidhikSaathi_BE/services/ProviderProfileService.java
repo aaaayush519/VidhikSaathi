@@ -88,13 +88,17 @@ public class ProviderProfileService {
         providerProfileDto.setName(provider.getName());
         providerProfileDto.setPhone(provider.getPhone());
         providerProfileDto.setEmail(provider.getEmail());
-        providerProfileDto.setUserId(provider.getId());providerProfileDto.setUsername(provider.getUsername());
+        providerProfileDto.setUserId(provider.getId());
+        providerProfileDto.setUsername(provider.getUsername());
         providerProfileDto.setCompletionStatus(provider.getCompletionStatus());
         if(providerProfileDto.getCompletionStatus().equals(Boolean.TRUE)){
-            ProviderProfile providerProfile = providerProfileRepository.findByUserId(provider.getId()).orElse(null);
-            providerProfileDto.setBarRegistrationNumber(providerProfile.getBarRegistrationNumber());
-            providerProfileDto.setExpertise(providerProfile.getExpertise());
-            providerProfileDto.setBio(providerProfile.getBio());
+            Optional<ProviderProfile> providerProfile = providerProfileRepository.findByUserId(provider.getId());
+            if(providerProfile.isPresent()){
+                providerProfileDto.setBarRegistrationNumber(providerProfile.get().getBarRegistrationNumber());
+                providerProfileDto.setExpertise(providerProfile.get().getExpertise());
+                providerProfileDto.setBio(providerProfile.get().getBio());
+            }
+
         }
         return providerProfileDto;
     }
