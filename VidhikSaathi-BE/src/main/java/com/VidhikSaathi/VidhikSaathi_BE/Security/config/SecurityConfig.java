@@ -59,19 +59,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer(){
-            @Value("${cors.allowed-origins}")
-            private String allowedOrigins;
-            String[] origins = allowedOrigins.split(",");
+    public WebMvcConfigurer corsConfigurer(@Value("${cors.allowed-origins}") String allowedOrigins) {
+        return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(CorsRegistry registry){
+            public void addCorsMappings(CorsRegistry registry) {
+                String[] origins = allowedOrigins.split(",");
                 registry.addMapping("/**")
                         .allowedOrigins(origins)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true);;
+                        .allowCredentials(true);
             }
         };
     }
+
 }
